@@ -14,12 +14,12 @@
 
       <div>
         <label for="preparationTime">Preparation Time:</label>
-        <input type="text" v-model="recipe.preparationTime" id="preparationTime" />
+        <input type="text" v-model.number="recipe.preparationTime" id="preparationTime" />
       </div>
 
       <div>
         <label for="cookingTime">Cooking Time:</label>
-        <input type="text" v-model="recipe.cookingTime" id="cookingTime" />
+        <input type="text" v-model.number="recipe.cookingTime" id="cookingTime" />
       </div>
 
       <div>
@@ -105,6 +105,9 @@ export default {
       this.recipe.instructions.splice(index, 1);
     },
     async submitForm() {
+      this.recipe.ingredients = this.recipe.ingredients.filter(ingredient => ingredient.trim() !== "");
+      this.recipe.instructions = this.recipe.instructions.filter(instruction => instruction.trim() !== "");
+
       this.newRecipe = { ...this.recipe }; // Shallow copy of recipe object
 
       try {
