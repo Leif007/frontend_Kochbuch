@@ -17,12 +17,16 @@ export default {
     },
 
     newRecipe(newRecipe) {
-        return apiClient.post('/recipe', {newRecipe})
-    },
+        return apiClient.post('/recipe', newRecipe)
 
+    },
     allRecipes() {
         return apiClient.get('/recipes')
     },
+    getAllRecipes() {
+        return apiClient.get('/recipes')
+    },
+    /*
     searchAndGetDetails(foodNames) {
     const backendUrl = 'https://meinkochbuch-backend.onrender.com';
         console.log(`Fetching details for: ${foodNames}`);
@@ -35,7 +39,10 @@ export default {
       .catch(error => {
           console.error('Error:', error);
       });
-}
+},
+
+     */
+
 }
 
 

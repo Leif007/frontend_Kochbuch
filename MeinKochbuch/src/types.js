@@ -1,7 +1,7 @@
 interface Recipe {
         name: String,
         description: String,
-        prepTime: Number,
+        preparationTime: Number,
         cookTime: Number,
         ingredients: Array<String>,
         servings: Number,

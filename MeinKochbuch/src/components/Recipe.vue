@@ -8,16 +8,6 @@
       </div>
 
       <div>
-        <label for="picture">Picture URL:</label>
-        <input type="text" v-model="recipe.picture" id="picture" />
-      </div>
-
-      <div>
-        <label for="preparationTime">Preparation Time:</label>
-        <input type="text" v-model.number="recipe.preparationTime" id="preparationTime" />
-      </div>
-
-      <div>
         <label for="cookingTime">Cooking Time:</label>
         <input type="text" v-model.number="recipe.cookingTime" id="cookingTime" />
       </div>
@@ -71,16 +61,14 @@
 </template>
 
 <script>
-import api from "@/components/api.js"; // Make sure axios is correctly imported
+import api from "@/components/api.js"; // Ensure correct import path
 
 export default {
   data() {
     return {
       recipe: {
         name: "",
-        picture: "",
-        preparationTime: "",
-        cookingTime: "",
+        cookingTime: null,
         description: "",
         ingredients: [""],
         instructions: [""],
@@ -88,7 +76,6 @@ export default {
         mealTime: "",
         dietType: ""
       },
-      newRecipe: null
     };
   },
   methods: {
@@ -105,24 +92,27 @@ export default {
       this.recipe.instructions.splice(index, 1);
     },
     async submitForm() {
+      // Remove empty ingredients and instructions
       this.recipe.ingredients = this.recipe.ingredients.filter(ingredient => ingredient.trim() !== "");
       this.recipe.instructions = this.recipe.instructions.filter(instruction => instruction.trim() !== "");
 
-      this.newRecipe = { ...this.recipe }; // Shallow copy of recipe object
+      // Create a shallow copy of the recipe object
+      const newRecipe = { ...this.recipe };
 
       try {
-        console.log(this.newRecipe); // Log to check data before sending
+        console.log('Payload to be sent:', newRecipe);
 
-        const response = await api.newRecipe(this.newRecipe); // Send to backend
-
-        console.log(response); // Log response from backend
+        // Send newRecipe directly
+        const response = await api.newRecipe(newRecipe);
+        console.log('Recipe submitted successfully:', response.data);
       } catch (error) {
-        console.log(error);
+        console.error('Error submitting recipe:', error.response?.data || error.message);
       }
-    }
+    },
   }
 };
 </script>
+
 
 <style scoped>
 form {
