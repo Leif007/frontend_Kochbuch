@@ -1,15 +1,14 @@
-<script setup>
-
-import Welcome from "@/components/Welcome.vue";
-</script>
-
 <template>
-  <header>
-    <div class="home">
-      <Welcome />
-    </div>
-  </header>
+  <div>
+    <h1>Welcome to your cooking book</h1>
+  </div>
 </template>
-<style>
 
+<style scoped>
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
 </style>
+<script setup>
+</script>

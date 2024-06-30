@@ -1,60 +1,131 @@
 <template>
-  <div id="recipe-list">
-    <h2>Recipes!</h2>
-    <ul>
-      <li v-for="recipe in recipes" :key="recipe.id">
-        <router-link :to="'/recipe/' + recipe.id">{{ recipe.name }}</router-link>
-      </li>
-    </ul>
+  <div class="container">
+    <h2>Recipes</h2>
+    <div v-if="recipes.length">
+      <div class="grid">
+        <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
+          <div class="recipe-header" @click="toggleRecipe(recipe)">
+            <h3>{{ recipe.name }}</h3>
+            <span v-if="recipe.expanded">&#9650;</span>
+            <span v-else>&#9660;</span>
+          </div>
+          <transition name="fade">
+            <div v-if="recipe.expanded" class="recipe-details">
+              <RecipeDetail :recipe="recipe" @update="handleUpdateRecipe" @delete="handleDeleteRecipe" />
+            </div>
+          </transition>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <p>No recipes found.</p>
+    </div>
   </div>
 </template>
 
 <script>
-import api from '@/components/api.js';
+import axios from 'axios';
+import RecipeDetail from "@/components/RecipeDetail.vue";
 
 export default {
+  components: {
+    RecipeDetail
+  },
   data() {
     return {
       recipes: []
     };
   },
-  async mounted() {
-    try {
-      const response = await api.getAllRecipes();
-      console.log('API Response:', response); // Check the entire response object
-      this.recipes = response.data; // Assuming the data is in response.data
-    } catch (error) {
-      console.error('Error fetching recipes:', error);
-      if (error.response) {
-        console.error('Error response:', error.response.data); // Log the specific error response
+  methods: {
+    async fetchRecipes() {
+      try {
+        const response = await axios.get('http://localhost:8080/recipes');
+        this.recipes = response.data.map(recipe => ({
+          ...recipe,
+          expanded: false  // Add 'expanded' property for each recipe
+        }));
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
       }
+    },
+    async handleUpdateRecipe(updatedRecipe) {
+      try {
+        await axios.put(`http://localhost:8080/recipe/${updatedRecipe.id}`, updatedRecipe);
+        this.fetchRecipes(); // Refresh recipes after update
+      } catch (error) {
+        console.error('Error updating recipe:', error);
+      }
+    },
+    async handleDeleteRecipe(recipeId) {
+      if (confirm('Are you sure you want to delete this recipe?')) {
+        try {
+          await axios.delete(`http://localhost:8080/recipe/${recipeId}`);
+          this.fetchRecipes(); // Refresh recipes after delete
+        } catch (error) {
+          console.error('Error deleting recipe:', error);
+        }
+      }
+    },
+    toggleRecipe(recipe) {
+      recipe.expanded = !recipe.expanded;  // Toggle 'expanded' property of clicked recipe
     }
+  },
+  mounted() {
+    this.fetchRecipes();
   }
 };
 </script>
 
 <style scoped>
-#recipe-list {
-  max-width: 600px;
-  margin: auto;
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-li {
-  margin-bottom: 10px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
-router-link {
-  text-decoration: none;
-  color: #007bff;
+.recipe-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: hidden;
   cursor: pointer;
 }
 
-router-link:hover {
-  text-decoration: underline;
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-header h3 {
+  margin: 0;
+  color: #007bff;
+}
+
+.recipe-details {
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

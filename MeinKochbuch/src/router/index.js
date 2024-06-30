@@ -1,30 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/HomeView.vue';
+import AddRecipeView from '../views/AddRecipeView.vue';
+import ShoppingListView from '../views/ShoppingListView.vue';
+import RecipesListView from '../views/RecipesListView.vue';
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/addRecipe', component: AddRecipeView },
+  { path: '/shoppingList', component: ShoppingListView },
+  { path: '/recipes', component: RecipesListView }
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/HomeView.vue')
-    },
-    {
-      path: '/addRecipe',
-      name: 'AddRecipe',
-      component: () => import('../views/AddRecipeView.vue')
-    },
-    {
-      path: '/recipes',
-      name: 'AllRecipes',
-      component: () => import('../views/RecipesView.vue')
-    },
-    {
-      path: '/shoppinglist',
-      name: 'ShoppingList',
-      component: () => import('../views/ShoppingListView.vue')
-    },
+  history: createWebHistory(),
+  routes
+});
 
-  ]
-})
-
-export default router
+export default router;

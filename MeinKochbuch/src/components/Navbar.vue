@@ -1,70 +1,32 @@
-<script>
-
-import { RouterLink } from 'vue-router'
-</script>
-
 <template>
-  <div id="box">
-  <ul>
-    <li class='home'>
-      <RouterLink to='/'>
-        Home
-      </RouterLink>
-    </li>
-
-    <li>
-      <RouterLink to='/recipes'>
-        Alle Rezepte
-      </RouterLink>
-    </li>
-
-    <li>
-      <RouterLink to='/addRecipe'>
-        Rezept hinzufügen
-      </RouterLink>
-    </li>
-
-    <li>
-      <RouterLink to='/shoppinglist'>
-        Shoppingliste
-      </RouterLink>
-    </li>
-
-
-  </ul>
-</div>
+  <nav>
+    <ul>
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/addRecipe">Add Recipe</router-link></li>
+      <li><router-link to="/shoppinglist">Shopping List</router-link></li>
+      <li><router-link to="/recipes">Recipes List</router-link></li>
+    </ul>
+  </nav>
 </template>
 
-<style scoped>
-.home {
-  float: left;
+<style>
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
 }
-
 ul {
-  font-family: Arial, sans-serif;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #749fd1;
-  position: fixed;
-  top: 0;
-  width: 100%;
+  display: flex;
+  gap: 20px;
 }
-
 li {
-  float: right;
+  display: inline;
 }
-
-li a {
-  display: block;
+a {
   color: white;
-  text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
 }
-
-li a:hover {
-  background-color: #1f3c63;
-}
 </style>
+<script setup>
+</script>

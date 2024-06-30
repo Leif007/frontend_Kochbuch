@@ -1,26 +1,22 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Navbar from '@/components/Navbar.vue'
-</script>
-
 <template>
   <div id="app">
-  <Navbar></Navbar>
-  <header>
-    <div class="wrapper">
-    </div>
-  </header>
-    </div>
-  <RouterView />
+    <Navbar />
+    <router-view />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script>
+import Navbar from './components/NavbarComponent.vue';
 
-#background{
-background-color: #f0f0f0;
+export default {
+  components: {
+    Navbar
+  }
+};
+</script>
+
+<style>
+#app {
+  font-family: Arial, sans-serif;
 }
 </style>
