@@ -4,7 +4,7 @@
 
 <template>
   <div class ="welcome">
-  <h1 id="title">Willkommen zu deinem online Kochbuch!</h1>
+  <h1 id="title">Willkommen zu deinem Online Kochbuch!</h1>
   <p>von Leif und Alexander</p>
     </div>
 </template>
