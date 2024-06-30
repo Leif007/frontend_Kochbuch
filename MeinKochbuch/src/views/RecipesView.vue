@@ -1,6 +1,6 @@
 <template>
   <div id="recipe-list">
-    <h2>Recipes</h2>
+    <h2>Recipes!</h2>
     <ul>
       <li v-for="recipe in recipes" :key="recipe.id">
         <router-link :to="'/recipe/' + recipe.id">{{ recipe.name }}</router-link>
