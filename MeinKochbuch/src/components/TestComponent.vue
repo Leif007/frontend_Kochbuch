@@ -3,7 +3,7 @@ import {loadThings} from "@/components/script.js";
 
 loadThings ()
 {
-    const endpoint = "https://meinkochbuch-backend.onrender.com/kochbuch"
+    const endpoint = "https://backendkochbuch.onrender.com"
     const requestOptions = {
         method: 'GET',
         redirect: 'follow'
