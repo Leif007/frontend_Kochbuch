@@ -1,1 +1,3 @@
 # Frontend-MeinKochbuch
+In unserer Webapplikation kann man Rezepte persönlich erstellen. Die Rezepte haben eine Beschreibung, eine Zubereitungszeit, die benötigten Zutaten, die Art des Gerichtes (z.B. Hauptgericht, Vorspeise, Dessert), Zeitpunkt der Mahlzeit (z.B. Frühstück, Mittagessen, Abendessen) und Diättyp des Rezepts.
+Über die obenliegende Navigationsbar gelangt man zu den verschiedenen Seiten der Webapplikation. Auf der "add recipe" Seite kann man sein eigenes Rezept erstellen. Bei Zutaten und Anweisungen kann man mehrere Eingaben betätigen. Wurde das Rezept erfolgreich in der Datenbank gespeichert, wird "recipe has been safed succesfully" angezeigt. Auf der "recipes" Seite werden alle Rezepte angezeigt.
